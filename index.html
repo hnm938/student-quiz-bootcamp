@@ -8,7 +8,42 @@
     <title>Student Quiz || Abe Hodos</title>
   </head>
   <body>
-    
+    <section id="menu-screen" style="display: flex">
+      <h1>Bootcamp Quiz</h1>
+      <button class="btn-default" onclick="startQuiz()">Start</button>
+    </section>
+    <div id="quiz-container">
+      <div id="transition-overlay-incorrect" style="display: none">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div id="transition-overlay-correct" style="display: none">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <section class="quiz-question">
+      <h1>Question Title #1</h1>
+        <p>Question description</p>
+        <div class="answer-container">
+          <button class="btn-inverted">#1</button>
+          <button class="btn-inverted">#2</button>
+          <button class="btn-inverted">#3</button>
+          <button class="btn-inverted" onclick="nextQuestion(this)">#4</button>
+        </div>
+      </section>
+      <section class="quiz-question">
+        <h1>Question Title #2</h1>
+        <p>Question description</p>
+        <div class="answer-container">
+          <button class="btn-inverted">#1</button>
+          <button class="btn-inverted">#2</button>
+          <button class="btn-inverted">#3</button>
+          <button class="btn-inverted">#4</button>
+        </div>
+      </section>
+    </div>
   </body>
   <script src="./script.js"></script>
 </html>
