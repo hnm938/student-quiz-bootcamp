@@ -1,4 +1,4 @@
-# Bootcamp Quiz
+# Bootcamp Student Quiz
 
 GitHub Pages: https://hnm938.github.io/student-quiz-bootcamp/
 
