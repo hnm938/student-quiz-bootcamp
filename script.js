@@ -29,7 +29,7 @@ var timer = new Timer(time, timerTick, 1000, timerError);
 // The current score of the current quiz running
 var quizScore = 0;
 
-const MAX_SCORE_COUNT = 10;
+const MAX_SCORE_COUNT = 7;
 const HIGH_SCORES = "high-scores";
 
 const highScoreString = localStorage.getItem(HIGH_SCORES);
@@ -40,11 +40,14 @@ function showHighScores() {
   const highScoreList = document.getElementById(HIGH_SCORES);
 
   highScoreList.innerHTML = highScores
-    .map((score) => `<li>${score.score} `)
+    .map(
+      (score) =>
+        `<li>${score.score}  points <br/><span style="margin: 0; padding: 0; font-size: 0.5em">${score.savedDate}</span>`
+    )
     .join("");
 }
-function saveHighScore(score) {
-  const newScore = { score };
+function saveHighScore(score, savedDate) {
+  const newScore = { score, savedDate };
   // 1. Add to list
   highScores.push(newScore);
   // 2. Sort the list
@@ -71,21 +74,28 @@ function init() {
   showHighScores();
   quizScore = 0;
 }
-window.onload = () => { init(); }
+window.onload = () => {
+  init();
+};
 
 // Start the quiz
 async function startQuiz() {
   const quizMenu = document.getElementById("menu-screen");
   const quizContainer = document.getElementById("quiz-container");
   const quizOverOverlay = document.getElementById("quiz-over-overlay");
-  const timerContainer = document.getElementById("timer");
+
+  const timerContainer = document.getElementById("counters-container");
+  const scoreCounter = document.getElementById("score-counter");
 
   // Hide quiz over overlay
   quizOverOverlay.classList.remove("active");
 
+  // Set score display
+  scoreCounter.innerHTML = `Score: ${quizScore}`;
+
   // Show timer and Add default time
   timerContainer.classList.add("active");
-  time += 9999;
+  time += 120;
   timer.start();
 
   // Hide and disable menu screen
@@ -109,27 +119,57 @@ function endQuiz() {
   const quizOverOverlay = document.getElementById("quiz-over-overlay");
   quizOverOverlay.classList.add("active");
   timer.stop();
-
-  // Show high scores
-  saveHighScore(quizScore, "high-scores");
 }
 // If time has not run out, and all the questions are done show the end score.
-function quizCompleted() {}
+async function quizCompleted() {
+  // Alert the user they have completed the quiz
+  alert(`
+    QUIZ COMPLETE
+    SCORE ADDED TO LEADERBOARD
+    ----
+    Score: ${quizScore}
+    Seconds Left: ${time}
+  `);
+
+  // Save the current score and date the score was saved
+  const newDate = new Date();
+  const formattedDate = newDate.toLocaleString("en-US", { dataStyle: "short" });
+  saveHighScore(quizScore, formattedDate);
+
+  // Refresh the window to restart
+  window.location.reload();
+}
 
 async function nextQuestion(e) {
+  const scoreCounter = document.getElementById("score-counter");
+
+  // Check if the score is in the negatives
+  if (quizScore <= -1) {
+    return endQuiz();
+  }
+
   // Check if answer was correct
   if (!e.classList.contains("correct")) {
     // If the answer was incorrect, decrease time
+    quizScore -= 3;
     time -= 5;
+
+    // Set score display
+    scoreCounter.innerHTML = `Score: ${quizScore}`;
+
     alert(`
     ${" ".repeat(40)}---------------------
     ${" ".repeat(40)}|❌INCORRECT❌|
     ${" ".repeat(40)}|     -5 seconds      |
     ${" ".repeat(40)}---------------------
     `);
-    return incorrectQuestion();
   } else {
     time += 10;
+    quizScore += 10;
+
+    // Set score display
+    scoreCounter.innerHTML = `Score: ${quizScore}`;
+
     alert(`
     ${" ".repeat(40)}---------------------
     ${" ".repeat(40)}|✅  CORRECT  ✅|
@@ -142,18 +182,16 @@ async function nextQuestion(e) {
   const currentQuestion = e.parentNode.parentNode;
   const nextQuestion = currentQuestion.nextElementSibling;
 
+  currentQuestion.classList.remove("active");
+  currentQuestion.style.display = "flex";
+  currentQuestion.style.flexDirection = "column";
+
   // If there is no more question, active show end screen
   if (nextQuestion === null) {
     return quizCompleted();
   }
 
-  // Add time if correct else deducted time
-
   // Show next question
-  currentQuestion.classList.remove("active");
-  currentQuestion.style.display = "flex";
-  currentQuestion.style.flexDirection = "column";
-
   setTimeout(() => {
     currentQuestion.display = "none";
     nextQuestion.classList.add("active");

@@ -83,6 +83,11 @@ body {
   border-bottom: solid var(--blue-2) 7px;
   font-size: 5em;
 }
+#quiz-over-overlay p {
+  color: var(--blue-2);
+  font-size: 1em;
+  margin: 20px 0 0 0;
+}
 #quiz-over-overlay button {
   border: solid var(--blue-1) 4px;
   font-family: inherit;
@@ -105,54 +110,56 @@ body {
   display: flex;
 }
 
-.high-score-container {
+.high-scores {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   margin: 25px 0;
 }
-.high-score-container h2 {
-  color: var(--blue-2);
+.high-scores h2 {
+  color: var(--green-1);
   font-size: 4em !important;
   font-weight: 600 !important;
   margin: 10px 0 25px 0 !important;
   border-bottom: solid var(--blue-2) 4px;
-  padding-bottom: 10px;
+  padding-bottom: 13px;
+  white-space: nowrap;
 }
-.high-score-container ol {
+.high-scores ol {
   width: 100%;
   margin: 0;
   list-style-position: inside;
+  list-style-type: none;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
-.high-score-container ol li {
+.high-scores ol li {
   width: 100%;
   transform: translateX(-20px);
   padding: 5px 0;
-  color: var(--blue-2);
+  color: var(--blue-1);
   font-size: 1.5em;
   font-weight: 600 !important;
   text-align: center;
 }
-.high-score-container ol li:nth-of-type(2n + 1) {
+.high-scores ol li:nth-of-type(2n + 1) {
   background-color: var(--blue-2);
-  color: var(--blue-1);
 }
 
 #menu-screen {
   z-index: 9998;
   width: -moz-fit-content;
   width: fit-content;
-  height: 100%;
+  height: -moz-fit-content;
+  height: fit-content;
   margin: 0 auto;
-  padding-bottom: 175px;
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  top: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -162,11 +169,61 @@ body {
 #menu-screen h1 {
   font-size: 6em;
   font-weight: 300;
-  margin: 0;
+  padding-bottom: 10px;
+  margin: 0 0 25px 0;
+  white-space: nowrap;
+  border-bottom: solid var(--blue-2) 4px;
 }
 #menu-screen button {
   width: 95%;
   padding: 10px 75px;
+}
+#menu-screen #menu-high-score-container {
+  width: 95%;
+  height: -moz-fit-content;
+  height: fit-content;
+  padding: 0;
+  margin: 25px 0;
+  background-color: var(--green-2);
+  border-radius: 8px;
+  position: relative;
+}
+#menu-screen #menu-high-score-container div {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+#menu-screen #menu-high-score-container .high-scores h2 {
+  z-index: 9999;
+  width: 100%;
+  margin: 5px 0 25px 0 !important;
+  padding: 0 !important;
+  border: none;
+  color: var(--blue-2) !important;
+  text-align: center;
+}
+#menu-screen #menu-high-score-container .high-scores ol {
+  width: calc(100% + 40px);
+}
+#menu-screen #menu-high-score-container .high-scores ol li {
+  width: 100%;
+  background-color: var(--green-2);
+}
+#menu-screen #menu-high-score-container .high-scores ol li:nth-of-type(2n + 1) {
+  background-color: var(--green-1);
+}
+#menu-screen #menu-high-score-container .high-scores ol li:nth-last-of-type(1) {
+  border-radius: 0 0 8px 8px;
+}
+#menu-screen #menu-high-score-container::after {
+  content: "";
+  width: 100%;
+  height: 90px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--green-1);
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 5px 3px 0 rgba(0, 0, 0, 0.25);
 }
 
 #quiz-container {
@@ -179,11 +236,7 @@ body {
   position: relative;
   transform: translateY(100px);
 }
-#quiz-container #score-counter {
-  position: absolute;
-  top: -15px;
-}
-#quiz-container #timer {
+#quiz-container #counters-container {
   z-index: 9998;
   pointer-events: none;
   transform: translateY(-350px);
@@ -192,7 +245,15 @@ body {
   opacity: 0;
   transition: all 500ms 600ms ease;
 }
-#quiz-container #timer.active {
+#quiz-container #counters-container #score-counter {
+  position: absolute;
+  left: 50%;
+  top: 40px;
+  transform: translateX(-50%);
+  color: var(--green-1);
+  font-size: 0.4em;
+}
+#quiz-container #counters-container.active {
   opacity: 1;
   transition: all 500ms 600ms ease;
 }
