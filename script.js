@@ -42,12 +42,12 @@ function showHighScores() {
   highScoreList.innerHTML = highScores
     .map(
       (score) =>
-        `<li>${score.score}  points - ${score.name} <br/><span style="margin: 0; padding: 0; font-size: 0.5em">${score.savedDate}</span>`
+        `<li>${score.score} points - ${score.name}  <br/><span style="margin: 0; padding: 0; font-size: 0.5em">${score.savedDate}</span>`
     )
     .join("");
 }
-function saveHighScore(score, savedDate) {
-  const newScore = { score, savedDate };
+function saveHighScore(score, savedDate, name) {
+  const newScore = { score, savedDate, name };
   // 1. Add to list
   highScores.push(newScore);
   // 2. Sort the list
@@ -95,7 +95,7 @@ async function startQuiz() {
 
   // Show timer and Add default time
   timerContainer.classList.add("active");
-  time += 120;
+  time += 60;
   timer.start();
 
   // Hide and disable menu screen
@@ -134,7 +134,8 @@ async function quizCompleted() {
   // Save the current score and date the score was saved
   const newDate = new Date();
   const formattedDate = newDate.toLocaleString("en-US", { dataStyle: "short" });
-  saveHighScore(quizScore, formattedDate);
+  const userName = prompt("Please enter your name or initals");
+  saveHighScore(quizScore, formattedDate, userName);
 
   // Refresh the window to restart
   window.location.reload();
