@@ -1,5 +1,7 @@
 # Bootcamp Quiz
 
+GitHub Pages: https://hnm938.github.io/student-quiz-bootcamp/
+
 The assigment this week was the create a quiz for some of the things
 we've learned during the course.
 
