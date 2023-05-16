@@ -42,7 +42,7 @@ function showHighScores() {
   highScoreList.innerHTML = highScores
     .map(
       (score) =>
-        `<li>${score.score}  points <br/><span style="margin: 0; padding: 0; font-size: 0.5em">${score.savedDate}</span>`
+        `<li>${score.score}  points - ${score.name} <br/><span style="margin: 0; padding: 0; font-size: 0.5em">${score.savedDate}</span>`
     )
     .join("");
 }
