@@ -62,7 +62,114 @@ body {
   }
 }
 
+#quiz-over-overlay {
+  opacity: 0;
+  z-index: -9999;
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+
+  background-color: var(--red-1);
+
+  div {
+    width: 300px;
+    aspect-ratio: 1;
+    margin: 100px 0 25px 0;
+
+    background-color: var(--red-2);
+    border-radius: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 12em;
+    color: var(--red-1);
+  }
+
+  h1 {
+    margin: 0;
+    color: var(--blue-2);
+    border-bottom: solid var(--blue-2) 7px;
+    font-size: 5em;
+  }
+
+  button {
+    border: solid var(--blue-1) 4px;
+    font-family: inherit;
+    background-color: var(--red-1);
+    font-size: 2em;
+    font-weight: 600;
+    color: var(--blue-2);
+    margin: 25px 0;
+    padding: 15px 100px; 
+    cursor: pointer;
+    transform: all 500ms ease;
+
+    &:hover {
+      filter: brightness(0.9);
+      transform: all 500ms ease;
+    }
+  }
+
+  &.active {
+    z-index: 9999;
+    opacity: 1;
+    display: flex;
+  }
+}
+
+.high-score-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  margin: 25px 0;
+  h2 {
+    color: var(--blue-2);
+    font-size: 4em !important;
+    font-weight: 600 !important;
+    margin: 10px 0 25px 0 !important;
+    border-bottom: solid var(--blue-2) 4px;
+    padding-bottom: 10px;
+  }
+
+  ol {
+    width: 100%;
+    margin: 0;
+    list-style-position: inside;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+    li {
+      width: 100%;
+      transform: translateX(-20px);
+      padding: 5px 0;
+
+      color: var(--blue-2);
+      font-size: 1.5em;
+      font-weight: 600 !important;
+      text-align: center;
+
+      &:nth-of-type(2n + 1) {
+        background-color: var(--blue-2);
+        color: var(--blue-1);
+      }
+    }
+  }
+}
+
 #menu-screen {
+  z-index: 9998;
   width: fit-content;
   height: 100%;
 
@@ -83,88 +190,11 @@ body {
   h1 {
     font-size: 6em;
     font-weight: 300;
-    margin: 0 0 25px 0;
+    margin: 0;
   }
   button {
     width: 95%;
     padding: 10px 75px;
-  }
-}
-
-#transition-overlay-incorrect,
-#transition-overlay-correct {
-  width: 100%;
-  height: 100%;
-  background-color: var(--red-1);
-
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  position: absolute;
-  top: 0; left: 0;
-
-  z-index: 9999;
-
-  div {
-    width: 3vw;
-    height: 15vw;
-
-    background-color: var(--red-1);
-    border-radius: 50px;
-    transform: translateY(-100px);
-
-    position: absolute;
-    z-index: 9999;
-
-    &:nth-of-type(1) {
-      transform: translateY(-100px) rotateZ(45deg);
-    }
-    &:nth-of-type(2) {
-      transform: translateY(-100px) rotateZ(-45deg);
-    }
-    &:nth-last-of-type(1) {
-      width: 20vw;
-      height: 20vw;
-      background-color: var(--red-2);
-      border-radius: 100%;
-      z-index: 9998;
-
-      &::after {
-        content: "INCORRECT";
-        color: black;
-
-        font-size: 3vw;
-        font-weight: bold;
-
-        position: absolute;
-        bottom: -5vw; left: 50%;
-        transform: translateX(-50%);
-      }
-    }
-  }
-}
-#transition-overlay-correct {
-  background-color: var(--green-1);
-
-  div {
-    background-color: var(--green-1);
-
-    &:nth-of-type(1) {
-      height: 12vw;
-      transform: translate(2vw, -100px) rotateZ(45deg);
-    }
-    &:nth-of-type(2) {
-      height: 7vw;
-      transform: translate(-2.75vw, -3.25vw) rotateZ(-45deg);
-    }
-    &:nth-last-of-type(1) {
-      background-color: var(--green-2);
-      &::after {
-        content: "CORRECT";
-      }
-    }
   }
 }
 
@@ -178,6 +208,29 @@ body {
   justify-content: center;
 
   position: relative;
+  transform: translateY(100px);
+
+  #score-counter {
+    position: absolute;
+    top: -15px;
+  }
+
+  #timer {
+    z-index: 9998;
+    pointer-events: none;
+    transform: translateY(-350px);
+
+    font-size: 5em;
+    color: var(--blue-2);
+
+    opacity: 0;
+    transition: all 500ms 600ms ease;
+
+    &.active {
+      opacity: 1;
+      transition: all 500ms 600ms ease;
+    }
+  }
 
   .quiz-question.active {
     opacity: 1;
@@ -223,6 +276,18 @@ body {
       button {
         padding: 10px 125px;
       }
+    }
+        
+    &::after {
+      content: "";
+      width: 75%;
+      height: 0.4em;
+
+      background-color: var(--blue-2);
+      
+      position: absolute;
+      top: -1.25em; left: 50%;
+      transform: translateX(-50%);
     }
   }
 }
