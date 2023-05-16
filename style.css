@@ -248,7 +248,7 @@ body {
 #quiz-container #counters-container #score-counter {
   position: absolute;
   left: 50%;
-  top: 40px;
+  top: 25px;
   transform: translateX(-50%);
   color: var(--green-1);
   font-size: 0.4em;
