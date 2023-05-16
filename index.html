@@ -1,39 +1,50 @@
 <!DOCTYPE html>
-  <html lang="en">
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="./style.css">
-    <script src="https://kit.fontawesome.com/b3cad2a71b.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script
+      src="https://kit.fontawesome.com/b3cad2a71b.js"
+      crossorigin="anonymous"
+    ></script>
     <title>Student Quiz || Abe Hodos</title>
   </head>
   <body>
+    <!-- QUIZ FAILED SCREEN -->
+    <div id="quiz-over-overlay" class="">
+      <div>
+        <i class="fa-solid fa-x"></i>
+      </div>
+      <h1>QUIZ FAILED</h1>
+      <p>You ran out of time or lost all your score</p>
+      <button onclick="quizCompleted()">Restart</button>
+    </div>
+    <!-- MENU SCREEN -->
     <section id="menu-screen" style="display: flex">
       <h1>Bootcamp Quiz</h1>
       <button class="btn-default" onclick="startQuiz()">Start</button>
-      <div class="high-score-container" style="margin: 25px 0 50px 0;">
-        <h2>Your High Scores</h2>
-        <ol id="high-scores"></ol>
+      <div id="menu-high-score-container">
+        <div class="high-scores" style="margin: 25px 0 50px 0">
+          <h2>High Scores</h2>
+          <ol id="high-scores"></ol>
+        </div>
       </div>
     </section>
-    <div id="quiz-container">
-      <h1 id="score-counter">Score: 100</h1>
-      <section id="timer" class="">
+    <!-- MAIN GAME SCREEN -->
+    <section id="quiz-container">
+      <section id="counters-container" class="">
+        <h2 id="score-counter">Score: 100</h2>
         <h1 id="timer-output">00:00:00</h1>
       </section>
-      <div id="quiz-over-overlay" class="">
-        <div>
-          <i class="fa-solid fa-x"></i>
-        </div>
-        <h1>OUT OF TIME</h1>
-        <button onclick="startQuiz()">Restart</button>
-      </div>
       <section class="quiz-question">
-      <h1>Question Title #1</h1>
+        <h1>Question Title #1</h1>
         <p>Question description</p>
         <div class="answer-container">
-          <button class="btn-inverted correct" onclick="nextQuestion(this)">#1</button>
+          <button class="btn-inverted correct" onclick="nextQuestion(this)">
+            #1
+          </button>
           <button class="btn-inverted" onclick="nextQuestion(this)">#2</button>
           <button class="btn-inverted" onclick="nextQuestion(this)">#3</button>
           <button class="btn-inverted" onclick="nextQuestion(this)">#4</button>
@@ -43,15 +54,14 @@
         <h1>Question Title #2</h1>
         <p>Question description</p>
         <div class="answer-container">
-          <button class="btn-inverted">#1</button>
-          <button class="btn-inverted">#2</button>
-          <button class="btn-inverted">#3</button>
-          <button class="btn-inverted">#4</button>
+          <button class="btn-inverted correct" onclick="nextQuestion(this)">
+            #1
+          </button>
+          <button class="btn-inverted" onclick="nextQuestion(this)">#2</button>
+          <button class="btn-inverted" onclick="nextQuestion(this)">#3</button>
+          <button class="btn-inverted" onclick="nextQuestion(this)">#4</button>
         </div>
       </section>
-    </div>
-    <section id="end-screen">
-
     </section>
   </body>
   <script src="./script.js"></script>

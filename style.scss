@@ -17,7 +17,7 @@
 body {
   height: 100vh;
   overflow: hidden;
-  
+
   margin: 0;
   padding: 0;
   background-color: var(--blue-1);
@@ -99,6 +99,12 @@ body {
     font-size: 5em;
   }
 
+  p {
+    color: var(--blue-2);
+    font-size: 1em;
+    margin: 20px 0 0 0;
+  }
+
   button {
     border: solid var(--blue-1) 4px;
     font-family: inherit;
@@ -107,7 +113,7 @@ body {
     font-weight: 600;
     color: var(--blue-2);
     margin: 25px 0;
-    padding: 15px 100px; 
+    padding: 15px 100px;
     cursor: pointer;
     transform: all 500ms ease;
 
@@ -124,7 +130,7 @@ body {
   }
 }
 
-.high-score-container {
+.high-scores {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -132,37 +138,38 @@ body {
 
   margin: 25px 0;
   h2 {
-    color: var(--blue-2);
+    color: var(--green-1);
     font-size: 4em !important;
     font-weight: 600 !important;
     margin: 10px 0 25px 0 !important;
     border-bottom: solid var(--blue-2) 4px;
-    padding-bottom: 10px;
+    padding-bottom: 13px;
+    white-space: nowrap;
   }
 
   ol {
     width: 100%;
     margin: 0;
     list-style-position: inside;
-    
+    list-style-type: none;
+
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    
+
     li {
       width: 100%;
       transform: translateX(-20px);
       padding: 5px 0;
 
-      color: var(--blue-2);
+      color: var(--blue-1);
       font-size: 1.5em;
       font-weight: 600 !important;
       text-align: center;
 
       &:nth-of-type(2n + 1) {
         background-color: var(--blue-2);
-        color: var(--blue-1);
       }
     }
   }
@@ -171,14 +178,14 @@ body {
 #menu-screen {
   z-index: 9998;
   width: fit-content;
-  height: 100%;
+  height: fit-content;
 
   margin: 0 auto;
-  padding-bottom: 175px;
 
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  top: 50%;
+  transform: translate(-50%, -50%);
 
   display: flex;
   align-items: center;
@@ -190,11 +197,78 @@ body {
   h1 {
     font-size: 6em;
     font-weight: 300;
-    margin: 0;
+    padding-bottom: 10px;
+    margin: 0 0 25px 0;
+    white-space: nowrap;
+    border-bottom: solid var(--blue-2) 4px;
   }
+
   button {
     width: 95%;
     padding: 10px 75px;
+  }
+
+  #menu-high-score-container {
+    width: 95%;
+    height: fit-content;
+
+    padding: 0;
+    margin: 25px 0;
+
+    background-color: var(--green-2);
+    border-radius: 8px;
+
+    position: relative;
+
+    div {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    .high-scores {
+      h2 {
+        z-index: 9999;
+
+        width: 100%;
+        margin: 5px 0 25px 0 !important;
+        padding: 0 !important;
+
+        border: none;
+        color: var(--blue-2) !important;
+        text-align: center;
+      }
+
+      ol {
+        width: calc(100% + 40px);
+
+        li {
+          width: 100%;
+          background-color: var(--green-2);
+
+          &:nth-of-type(2n + 1) {
+            background-color: var(--green-1);
+          }
+
+          &:nth-last-of-type(1) {
+            border-radius: 0 0 8px 8px;
+          }
+        }
+      }
+    }
+
+    &::after {
+      content: "";
+      width: 100%;
+      height: 90px;
+
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      background-color: var(--green-1);
+      border-radius: 8px 8px 0 0;
+      box-shadow: 0 5px 3px 0 rgba(0, 0, 0, 0.25);
+    }
   }
 }
 
@@ -210,12 +284,7 @@ body {
   position: relative;
   transform: translateY(100px);
 
-  #score-counter {
-    position: absolute;
-    top: -15px;
-  }
-
-  #timer {
+  #counters-container {
     z-index: 9998;
     pointer-events: none;
     transform: translateY(-350px);
@@ -225,6 +294,16 @@ body {
 
     opacity: 0;
     transition: all 500ms 600ms ease;
+
+    #score-counter {
+      position: absolute;
+      left: 50%;
+      top: 40px;
+      transform: translateX(-50%);
+
+      color: var(--green-1);
+      font-size: 0.4em;
+    }
 
     &.active {
       opacity: 1;
@@ -243,7 +322,7 @@ body {
     opacity: 0;
 
     position: absolute;
-    top: 50%; 
+    top: 50%;
     transform: translateY(calc(-50% - 100px));
 
     transition: opacity 500ms ease;
@@ -277,16 +356,17 @@ body {
         padding: 10px 125px;
       }
     }
-        
+
     &::after {
       content: "";
       width: 75%;
       height: 0.4em;
 
       background-color: var(--blue-2);
-      
+
       position: absolute;
-      top: -1.25em; left: 50%;
+      top: -1.25em;
+      left: 50%;
       transform: translateX(-50%);
     }
   }
